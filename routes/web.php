@@ -7,20 +7,32 @@ use Illuminate\Support\Facades\Route;
 
 //https://laravel.com/docs/11.x/routing
 //basic controller
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 
-Route::get("/", function () {
-    return "halo Hadie apa kabar";
-});
+// Route::get("/", function () {
+//     return "halo Hadie apa kabar";
+// });
 
-Route::get("/", function () {
-    return view('landing-page');
-});
+// Route::get("/", function () {
+//     return view('landing-page');
+// });
 
-Route::view('/', 'welcome');
+// Route::view('/', 'welcome')->name('home');
+
+Route::get('/landing', function () {
+    return view('landing-page', [
+        'data' => range(1, 100),
+        'name' => 'hadie',
+        'grade' => 'Laravel Dasar',
+        'user' => [
+            'name' => 'hadie',
+            'grade' => 'Belajar Laravel'
+        ]
+    ]);
+})->name('landing');
 
 // Route::get('/', [HomeController::class, 'index']);
 
@@ -31,7 +43,8 @@ Route::view('/', 'welcome');
 
 //grouping  routes
 Route::controller(HomeController::class)->group(function () {
-    Route::get('/', 'index');
+    Route::get('/', 'index')->name('home');
+    Route::get('/blog/{id}', 'index')->name('single-post');
 
     // Route::get('/{id}', 'show');
 });
